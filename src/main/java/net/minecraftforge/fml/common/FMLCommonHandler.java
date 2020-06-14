@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -242,7 +243,10 @@ public class FMLCommonHandler
             }
             int tModCount = Loader.instance().getModList().size();
             int aModCount = Loader.instance().getActiveModList().size();
-            brd.add(String.format("%d mod%s loaded, %d mod%s active", tModCount, tModCount!=1 ? "s" :"", aModCount, aModCount!=1 ? "s" :"" ));
+            brd.add(MessageFormat.format(
+                    "{0,number,integer} {0,choice,0#mods|1#mod|1<mods} loaded, " +
+                            "{1,number,integer} {1,choice,0#mods|1#mod|1<mods} active",
+                    tModCount, aModCount));
             brandings = brd.build();
             brandingsNoMC = brandings.subList(1, brandings.size());
         }
