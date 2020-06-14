@@ -35,6 +35,7 @@ import java.io.Writer;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.nio.IntBuffer;
 import java.nio.charset.StandardCharsets;
+import java.text.NumberFormat;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.concurrent.Semaphore;
@@ -122,6 +123,8 @@ public class SplashProgress
     private static final int TIMING_FRAME_THRESHOLD = TIMING_FRAME_COUNT * 5 * 1000000; // 5 ms per frame, scaled to nanos
 
     static final Semaphore mutex = new Semaphore(1);
+
+    private static final NumberFormat integerFormat = NumberFormat.getIntegerInstance();
 
     private static String getString(String name, String def)
     {
@@ -517,7 +520,7 @@ public class SplashProgress
 
             private String getMemoryString(int memory)
             {
-                return StringUtils.leftPad(Integer.toString(memory), 4, ' ') + " MB";
+                return StringUtils.leftPad(integerFormat.format(memory), 4, ' ') + " MB";
             }
 
             private void setGL()
