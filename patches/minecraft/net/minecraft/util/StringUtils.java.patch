@@ -1,0 +1,30 @@
+--- ../src-base/minecraft/net/minecraft/util/StringUtils.java
++++ ../src-work/minecraft/net/minecraft/util/StringUtils.java
+@@ -1,5 +1,6 @@
+ package net.minecraft.util;
+ 
++import java.text.NumberFormat;
+ import java.util.regex.Pattern;
+ import javax.annotation.Nullable;
+ import net.minecraftforge.fml.relauncher.Side;
+@@ -8,6 +9,11 @@
+ public class StringUtils
+ {
+     private static final Pattern field_76339_a = Pattern.compile("(?i)\\u00A7[0-9A-FK-OR]");
++    private static final NumberFormat numberFormat = NumberFormat.getIntegerInstance();
++    private static final NumberFormat numberFormat00 = NumberFormat.getIntegerInstance();
++    static {
++        numberFormat00.setMinimumIntegerDigits(2);
++    }
+ 
+     @SideOnly(Side.CLIENT)
+     public static String func_76337_a(int p_76337_0_)
+@@ -15,7 +21,7 @@
+         int i = p_76337_0_ / 20;
+         int j = i / 60;
+         i = i % 60;
+-        return i < 10 ? j + ":0" + i : j + ":" + i;
++        return numberFormat.format(j) + ":" + numberFormat00.format(i);
+     }
+ 
+     @SideOnly(Side.CLIENT)
