@@ -20,6 +20,7 @@
 package net.minecraftforge.server.command;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -30,7 +31,13 @@ import net.minecraftforge.common.DimensionManager;
 
 class CommandTps extends CommandBase
 {
-    private static final DecimalFormat TIME_FORMATTER = new DecimalFormat("########0.000");
+    private static final NumberFormat TIME_FORMATTER = NumberFormat.getNumberInstance();
+    static
+    {
+        TIME_FORMATTER.setGroupingUsed(false);
+        TIME_FORMATTER.setMinimumFractionDigits(3);
+        TIME_FORMATTER.setMaximumFractionDigits(3);
+    }
 
     @Override
     public String getName()

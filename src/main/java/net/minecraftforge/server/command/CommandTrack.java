@@ -21,6 +21,7 @@ package net.minecraftforge.server.command;
 
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -45,7 +46,13 @@ import net.minecraftforge.server.timings.TimeTracker;
 class CommandTrack extends CommandTreeBase
 {
 
-    private static final DecimalFormat TIME_FORMAT = new DecimalFormat("#####0.00");
+    private static final NumberFormat TIME_FORMAT = NumberFormat.getNumberInstance();
+    static
+    {
+        TIME_FORMAT.setGroupingUsed(false);
+        TIME_FORMAT.setMinimumFractionDigits(2);
+        TIME_FORMAT.setMaximumFractionDigits(2);
+    }
 
     public CommandTrack()
     {
