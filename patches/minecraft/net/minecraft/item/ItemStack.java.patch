@@ -1,6 +1,14 @@
 --- ../src-base/minecraft/net/minecraft/item/ItemStack.java
 +++ ../src-work/minecraft/net/minecraft/item/ItemStack.java
-@@ -50,7 +50,7 @@
+@@ -4,6 +4,7 @@
+ import com.google.common.collect.Lists;
+ import com.google.common.collect.Multimap;
+ import java.text.DecimalFormat;
++import java.text.NumberFormat;
+ import java.util.List;
+ import java.util.Random;
+ import java.util.Map.Entry;
+@@ -50,10 +51,14 @@
  import net.minecraftforge.fml.relauncher.Side;
  import net.minecraftforge.fml.relauncher.SideOnly;
  
@@ -8,8 +16,16 @@
 +public final class ItemStack implements net.minecraftforge.common.capabilities.ICapabilitySerializable<NBTTagCompound>
  {
      public static final ItemStack field_190927_a = new ItemStack((Item)null);
-     public static final DecimalFormat field_111284_a = new DecimalFormat("#.##");
-@@ -66,6 +66,10 @@
+-    public static final DecimalFormat field_111284_a = new DecimalFormat("#.##");
++    public static final NumberFormat field_111284_a = NumberFormat.getNumberInstance();
++    static
++    {
++        field_111284_a.setMaximumFractionDigits(2);
++    }
+     private int field_77994_a;
+     private int field_77992_b;
+     private final Item field_151002_e;
+@@ -66,6 +71,10 @@
      private Block field_179550_j;
      private boolean field_179551_k;
  
@@ -20,7 +36,7 @@
      public ItemStack(Block p_i1876_1_)
      {
          this(p_i1876_1_, 1);
-@@ -91,8 +95,10 @@
+@@ -91,8 +100,10 @@
          this(p_i1880_1_, p_i1880_2_, 0);
      }
  
@@ -32,7 +48,7 @@
          this.field_151002_e = p_i1881_1_;
          this.field_77991_e = p_i1881_3_;
          this.field_77994_a = p_i1881_2_;
-@@ -103,6 +109,7 @@
+@@ -103,6 +114,7 @@
          }
  
          this.func_190923_F();
@@ -40,7 +56,7 @@
      }
  
      private void func_190923_F()
-@@ -112,7 +119,8 @@
+@@ -112,7 +124,8 @@
  
      public ItemStack(NBTTagCompound p_i47263_1_)
      {
@@ -50,7 +66,7 @@
          this.field_77994_a = p_i47263_1_.func_74771_c("Count");
          this.field_77991_e = Math.max(0, p_i47263_1_.func_74765_d("Damage"));
  
-@@ -127,6 +135,7 @@
+@@ -127,6 +140,7 @@
          }
  
          this.func_190923_F();
@@ -58,7 +74,7 @@
      }
  
      public boolean func_190926_b()
-@@ -135,7 +144,7 @@
+@@ -135,7 +149,7 @@
          {
              return true;
          }
@@ -67,7 +83,7 @@
          {
              if (this.field_77994_a <= 0)
              {
-@@ -169,11 +178,12 @@
+@@ -169,11 +183,12 @@
  
      public Item func_77973_b()
      {
@@ -81,7 +97,7 @@
          EnumActionResult enumactionresult = this.func_77973_b().func_180614_a(p_179546_1_, p_179546_2_, p_179546_3_, p_179546_4_, p_179546_5_, p_179546_6_, p_179546_7_, p_179546_8_);
  
          if (enumactionresult == EnumActionResult.SUCCESS)
-@@ -184,6 +194,19 @@
+@@ -184,6 +199,19 @@
          return enumactionresult;
      }
  
@@ -101,7 +117,7 @@
      public float func_150997_a(IBlockState p_150997_1_)
      {
          return this.func_77973_b().func_150893_a(this, p_150997_1_);
-@@ -211,12 +234,18 @@
+@@ -211,12 +239,18 @@
              p_77955_1_.func_74782_a("tag", this.field_77990_d);
          }
  
@@ -121,7 +137,7 @@
      }
  
      public boolean func_77985_e()
-@@ -230,7 +259,7 @@
+@@ -230,7 +264,7 @@
          {
              return false;
          }
@@ -130,7 +146,7 @@
          {
              return false;
          }
-@@ -247,32 +276,27 @@
+@@ -247,32 +281,27 @@
  
      public boolean func_77951_h()
      {
@@ -168,7 +184,7 @@
      }
  
      public boolean func_96631_a(int p_96631_1_, Random p_96631_2_, @Nullable EntityPlayerMP p_96631_3_)
-@@ -309,8 +333,8 @@
+@@ -309,8 +338,8 @@
                  CriteriaTriggers.field_193132_s.func_193158_a(p_96631_3_, this, this.field_77991_e + p_96631_1_);
              }
  
@@ -179,7 +195,7 @@
          }
      }
  
-@@ -359,7 +383,7 @@
+@@ -359,7 +388,7 @@
  
      public boolean func_150998_b(IBlockState p_150998_1_)
      {
@@ -188,7 +204,7 @@
      }
  
      public boolean func_111282_a(EntityPlayer p_111282_1_, EntityLivingBase p_111282_2_, EnumHand p_111282_3_)
-@@ -369,7 +393,7 @@
+@@ -369,7 +398,7 @@
  
      public ItemStack func_77946_l()
      {
@@ -197,7 +213,7 @@
          itemstack.func_190915_d(this.func_190921_D());
  
          if (this.field_77990_d != null)
-@@ -394,7 +418,7 @@
+@@ -394,7 +423,7 @@
              }
              else
              {
@@ -206,7 +222,7 @@
              }
          }
          else
-@@ -435,7 +459,7 @@
+@@ -435,7 +464,7 @@
          }
          else
          {
@@ -215,7 +231,7 @@
          }
      }
  
-@@ -862,6 +886,7 @@
+@@ -862,6 +891,7 @@
              }
          }
  
@@ -223,7 +239,7 @@
          return list;
      }
  
-@@ -871,6 +896,7 @@
+@@ -871,6 +901,7 @@
          return this.func_77973_b().func_77636_d(this);
      }
  
@@ -231,7 +247,7 @@
      public EnumRarity func_77953_t()
      {
          return this.func_77973_b().func_77613_e(this);
-@@ -987,7 +1013,7 @@
+@@ -987,7 +1018,7 @@
          }
          else
          {
@@ -240,7 +256,7 @@
          }
  
          return multimap;
-@@ -1032,7 +1058,7 @@
+@@ -1032,7 +1063,7 @@
          {
              NBTTagCompound nbttagcompound = this.func_77955_b(new NBTTagCompound());
              itextcomponent.func_150256_b().func_150209_a(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new TextComponentString(nbttagcompound.toString())));
@@ -249,7 +265,7 @@
          }
  
          return itextcomponent;
-@@ -1130,4 +1156,128 @@
+@@ -1130,4 +1161,128 @@
      {
          this.func_190917_f(-p_190918_1_);
      }

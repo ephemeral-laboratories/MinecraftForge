@@ -1,0 +1,33 @@
+--- ../src-base/minecraft/net/minecraft/server/gui/StatsComponent.java
++++ ../src-work/minecraft/net/minecraft/server/gui/StatsComponent.java
+@@ -6,16 +6,29 @@
+ import java.awt.event.ActionEvent;
+ import java.awt.event.ActionListener;
+ import java.text.DecimalFormat;
++import java.text.NumberFormat;
+ import javax.swing.JComponent;
+ import javax.swing.Timer;
+ import net.minecraft.server.MinecraftServer;
+ import net.minecraftforge.fml.relauncher.Side;
+ import net.minecraftforge.fml.relauncher.SideOnly;
+ 
++
++import jdk.internal.dynalink.beans.StaticClass;
++import net.minecraft.server.MinecraftServer;
++import net.minecraftforge.fml.relauncher.Side;
++import net.minecraftforge.fml.relauncher.SideOnly;
++
+ @SideOnly(Side.SERVER)
+ public class StatsComponent extends JComponent
+ {
+-    private static final DecimalFormat field_120040_a = new DecimalFormat("########0.000");
++    private static final NumberFormat field_120040_a = NumberFormat.getNumberInstance();
++    static
++    {
++        field_120040_a.setMinimumFractionDigits(3);
++        field_120040_a.setMaximumFractionDigits(3);
++        field_120040_a.setGroupingUsed(false);
++    }
+     private final int[] field_120038_b = new int[256];
+     private int field_120039_c;
+     private final String[] field_120036_d = new String[11];

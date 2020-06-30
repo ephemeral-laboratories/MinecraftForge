@@ -1,0 +1,99 @@
+--- ../src-base/minecraft/net/minecraft/client/gui/inventory/GuiEditStructure.java
++++ ../src-work/minecraft/net/minecraft/client/gui/inventory/GuiEditStructure.java
+@@ -5,6 +5,8 @@
+ import java.io.IOException;
+ import java.text.DecimalFormat;
+ import java.text.DecimalFormatSymbols;
++import java.text.NumberFormat;
++import java.text.ParseException;
+ import java.util.List;
+ import java.util.Locale;
+ import net.minecraft.client.gui.GuiButton;
+@@ -61,12 +63,14 @@
+     private GuiButton field_189841_Q;
+     private GuiButton field_189842_R;
+     private final List<GuiTextField> field_189843_S = Lists.<GuiTextField>newArrayList();
+-    private final DecimalFormat field_189844_T = new DecimalFormat("0.0###");
++    private final NumberFormat field_189844_T = NumberFormat.getNumberInstance();
++    private final NumberFormat integerFormat = NumberFormat.getIntegerInstance();
+ 
+     public GuiEditStructure(TileEntityStructure p_i47142_1_)
+     {
+         this.field_189846_f = p_i47142_1_;
+-        this.field_189844_T.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.US));
++        this.field_189844_T.setMinimumFractionDigits(1);
++        this.field_189844_T.setMaximumFractionDigits(4);
+     }
+ 
+     public void func_73876_c()
+@@ -108,28 +112,28 @@
+         BlockPos blockpos = this.field_189846_f.func_189711_e();
+         this.field_189854_v = new GuiTextField(3, this.field_146289_q, this.field_146294_l / 2 - 152, 80, 80, 20);
+         this.field_189854_v.func_146203_f(15);
+-        this.field_189854_v.func_146180_a(Integer.toString(blockpos.func_177958_n()));
++        this.field_189854_v.func_146180_a(integerFormat.format(blockpos.func_177958_n()));
+         this.field_189843_S.add(this.field_189854_v);
+         this.field_189855_w = new GuiTextField(4, this.field_146289_q, this.field_146294_l / 2 - 72, 80, 80, 20);
+         this.field_189855_w.func_146203_f(15);
+-        this.field_189855_w.func_146180_a(Integer.toString(blockpos.func_177956_o()));
++        this.field_189855_w.func_146180_a(integerFormat.format(blockpos.func_177956_o()));
+         this.field_189843_S.add(this.field_189855_w);
+         this.field_189856_x = new GuiTextField(5, this.field_146289_q, this.field_146294_l / 2 + 8, 80, 80, 20);
+         this.field_189856_x.func_146203_f(15);
+-        this.field_189856_x.func_146180_a(Integer.toString(blockpos.func_177952_p()));
++        this.field_189856_x.func_146180_a(integerFormat.format(blockpos.func_177952_p()));
+         this.field_189843_S.add(this.field_189856_x);
+         BlockPos blockpos1 = this.field_189846_f.func_189717_g();
+         this.field_189857_y = new GuiTextField(6, this.field_146289_q, this.field_146294_l / 2 - 152, 120, 80, 20);
+         this.field_189857_y.func_146203_f(15);
+-        this.field_189857_y.func_146180_a(Integer.toString(blockpos1.func_177958_n()));
++        this.field_189857_y.func_146180_a(integerFormat.format(blockpos1.func_177958_n()));
+         this.field_189843_S.add(this.field_189857_y);
+         this.field_189858_z = new GuiTextField(7, this.field_146289_q, this.field_146294_l / 2 - 72, 120, 80, 20);
+         this.field_189858_z.func_146203_f(15);
+-        this.field_189858_z.func_146180_a(Integer.toString(blockpos1.func_177956_o()));
++        this.field_189858_z.func_146180_a(integerFormat.format(blockpos1.func_177956_o()));
+         this.field_189843_S.add(this.field_189858_z);
+         this.field_189825_A = new GuiTextField(8, this.field_146289_q, this.field_146294_l / 2 + 8, 120, 80, 20);
+         this.field_189825_A.func_146203_f(15);
+-        this.field_189825_A.func_146180_a(Integer.toString(blockpos1.func_177952_p()));
++        this.field_189825_A.func_146180_a(integerFormat.format(blockpos1.func_177952_p()));
+         this.field_189843_S.add(this.field_189825_A);
+         this.field_189826_B = new GuiTextField(15, this.field_146289_q, this.field_146294_l / 2 - 152, 120, 80, 20);
+         this.field_189826_B.func_146203_f(15);
+@@ -466,9 +470,9 @@
+     {
+         try
+         {
+-            return Long.valueOf(p_189821_1_).longValue();
++            return integerFormat.parse(p_189821_1_).longValue();
+         }
+-        catch (NumberFormatException var3)
++        catch (ParseException var3)
+         {
+             return 0L;
+         }
+@@ -478,9 +482,9 @@
+     {
+         try
+         {
+-            return Float.valueOf(p_189819_1_).floatValue();
++            return field_189844_T.parse(p_189819_1_).floatValue();
+         }
+-        catch (NumberFormatException var3)
++        catch (ParseException var3)
+         {
+             return 1.0F;
+         }
+@@ -490,9 +494,9 @@
+     {
+         try
+         {
+-            return Integer.parseInt(p_189817_1_);
++            return integerFormat.parse(p_189817_1_).intValue();
+         }
+-        catch (NumberFormatException var3)
++        catch (ParseException var3)
+         {
+             return 0;
+         }
