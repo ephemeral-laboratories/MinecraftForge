@@ -1,6 +1,14 @@
 --- a/net/minecraft/client/renderer/ItemRenderer.java
 +++ b/net/minecraft/client/renderer/ItemRenderer.java
-@@ -54,7 +54,7 @@
+@@ -37,6 +37,7 @@
+ import net.minecraft.resources.IResourceManagerReloadListener;
+ import net.minecraft.util.Direction;
+ import net.minecraft.util.ResourceLocation;
++import net.minecraft.util.StringUtils;
+ import net.minecraft.util.math.MathHelper;
+ import net.minecraft.util.registry.Registry;
+ import net.minecraft.world.World;
+@@ -54,7 +55,7 @@
  
     public ItemRenderer(TextureManager p_i46552_1_, ModelManager p_i46552_2_, ItemColors p_i46552_3_) {
        this.field_175057_n = p_i46552_1_;
@@ -9,7 +17,7 @@
  
        for(Item item : Registry.field_212630_s) {
           if (!field_195411_c.contains(item)) {
-@@ -91,7 +91,7 @@
+@@ -91,7 +92,7 @@
              p_229111_8_ = this.field_175059_m.func_178083_a().func_174953_a(new ModelResourceLocation("minecraft:trident#inventory"));
           }
  
@@ -18,7 +26,7 @@
           p_229111_4_.func_227861_a_(-0.5D, -0.5D, -0.5D);
           if (!p_229111_8_.func_188618_c() && (p_229111_1_.func_77973_b() != Items.field_203184_eO || flag1)) {
              RenderType rendertype = RenderTypeLookup.func_228389_a_(p_229111_1_);
-@@ -105,7 +105,7 @@
+@@ -105,7 +106,7 @@
              IVertexBuilder ivertexbuilder = func_229113_a_(p_229111_5_, rendertype1, true, p_229111_1_.func_77962_s());
              this.func_229114_a_(p_229111_8_, p_229111_1_, p_229111_6_, p_229111_7_, p_229111_4_, ivertexbuilder);
           } else {
@@ -27,7 +35,7 @@
           }
  
           p_229111_4_.func_227865_b_();
-@@ -129,7 +129,7 @@
+@@ -129,7 +130,7 @@
           float f = (float)(i >> 16 & 255) / 255.0F;
           float f1 = (float)(i >> 8 & 255) / 255.0F;
           float f2 = (float)(i & 255) / 255.0F;
@@ -36,7 +44,7 @@
        }
  
     }
-@@ -215,6 +215,7 @@
+@@ -215,6 +216,7 @@
              crashreportcategory.func_189529_a("Item Type", () -> {
                 return String.valueOf((Object)p_184391_2_.func_77973_b());
              });
@@ -44,7 +52,15 @@
              crashreportcategory.func_189529_a("Item Damage", () -> {
                 return String.valueOf(p_184391_2_.func_77952_i());
              });
-@@ -246,18 +247,16 @@
+@@ -239,25 +241,23 @@
+       if (!p_180453_2_.func_190926_b()) {
+          MatrixStack matrixstack = new MatrixStack();
+          if (p_180453_2_.func_190916_E() != 1 || p_180453_5_ != null) {
+-            String s = p_180453_5_ == null ? String.valueOf(p_180453_2_.func_190916_E()) : p_180453_5_;
++            String s = p_180453_5_ == null ? StringUtils.formatInteger(p_180453_2_.func_190916_E()) : p_180453_5_;
+             matrixstack.func_227861_a_(0.0D, 0.0D, (double)(this.field_77023_b + 200.0F));
+             IRenderTypeBuffer.Impl irendertypebuffer$impl = IRenderTypeBuffer.func_228455_a_(Tessellator.func_178181_a().func_178180_c());
+             p_180453_1_.func_228079_a_(s, (float)(p_180453_3_ + 19 - 2 - p_180453_1_.func_78256_a(s)), (float)(p_180453_4_ + 6 + 3), 16777215, true, matrixstack.func_227866_c_().func_227870_a_(), irendertypebuffer$impl, false, 0, 15728880);
              irendertypebuffer$impl.func_228461_a_();
           }
  
@@ -67,7 +83,7 @@
              this.func_181565_a(bufferbuilder, p_180453_3_ + 2, p_180453_4_ + 13, 13, 2, 0, 0, 0, 255);
              this.func_181565_a(bufferbuilder, p_180453_3_ + 2, p_180453_4_ + 13, i, 1, j >> 16 & 255, j >> 8 & 255, j & 255, 255);
              RenderSystem.enableBlend();
-@@ -295,4 +294,9 @@
+@@ -295,4 +295,9 @@
     public void func_195410_a(IResourceManager p_195410_1_) {
        this.field_175059_m.func_178085_b();
     }
