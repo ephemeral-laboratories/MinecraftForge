@@ -1,7 +1,6 @@
 --- a/net/minecraft/util/StringUtils.java
 +++ b/net/minecraft/util/StringUtils.java
-@@ -1,19 +1,26 @@
- package net.minecraft.util;
+@@ -2,18 +2,28 @@
  
  import java.util.regex.Pattern;
  import javax.annotation.Nullable;
@@ -17,6 +16,10 @@
 +      numberFormat00.setMinimumIntegerDigits(2);
 +   }
  
++   public static String formatInteger(long value) {
++      return numberFormat.format(value);
++   }
++
     @OnlyIn(Dist.CLIENT)
     public static String func_76337_a(int p_76337_0_) {
        int i = p_76337_0_ / 20;
