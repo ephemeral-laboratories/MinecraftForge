@@ -1,6 +1,6 @@
 --- a/net/minecraft/util/StringUtils.java
 +++ b/net/minecraft/util/StringUtils.java
-@@ -2,18 +2,28 @@
+@@ -2,18 +2,34 @@
  
  import java.util.regex.Pattern;
  import javax.annotation.Nullable;
@@ -12,12 +12,18 @@
     private static final Pattern field_76339_a = Pattern.compile("(?i)\\u00A7[0-9A-FK-OR]");
 +   private static final NumberFormat numberFormat = NumberFormat.getIntegerInstance();
 +   private static final NumberFormat numberFormat00 = NumberFormat.getIntegerInstance();
++   private static final NumberFormat percentFormat = NumberFormat.getPercentInstance();
 +   static {
 +      numberFormat00.setMinimumIntegerDigits(2);
++      percentFormat.setMaximumFractionDigits(0);
 +   }
  
 +   public static String formatInteger(long value) {
 +      return numberFormat.format(value);
++   }
++
++   public static String formatPercent(float ratio) {
++      return percentFormat.format(ratio);
 +   }
 +
     @OnlyIn(Dist.CLIENT)
