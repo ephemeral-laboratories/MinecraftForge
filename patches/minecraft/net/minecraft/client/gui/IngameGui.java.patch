@@ -18,6 +18,15 @@
              }
           }
  
+@@ -546,7 +550,7 @@
+       this.field_73839_d.func_213239_aq().func_76319_b();
+       if (this.field_73839_d.field_71439_g.field_71068_ca > 0) {
+          this.field_73839_d.func_213239_aq().func_76320_a("expLevel");
+-         String s = "" + this.field_73839_d.field_71439_g.field_71068_ca;
++         String s = StringUtils.formatInteger(this.field_73839_d.field_71439_g.field_71068_ca);
+          int i1 = (this.field_194811_H - this.func_175179_f().func_78256_a(s)) / 2;
+          int j1 = this.field_194812_I - 31 - 4;
+          this.func_175179_f().func_211126_b(s, (float)(i1 + 1), (float)j1, 0);
 @@ -568,6 +572,7 @@
           }
  
@@ -40,6 +49,15 @@
              RenderSystem.disableBlend();
              RenderSystem.popMatrix();
           }
+@@ -641,7 +652,7 @@
+          ++k;
+          ScorePlayerTeam scoreplayerteam1 = scoreboard.func_96509_i(score1.func_96653_e());
+          String s2 = ScorePlayerTeam.func_200541_a(scoreplayerteam1, new StringTextComponent(score1.func_96653_e())).func_150254_d();
+-         String s3 = TextFormatting.RED + "" + score1.func_96652_c();
++         String s3 = TextFormatting.RED + StringUtils.formatInteger(score1.func_96652_c());
+          int j1 = i2 - k * 9;
+          int k1 = this.field_194811_H - 3 + 2;
+          fill(k2 - 2, j1, k1, j1 + 9, l);
 @@ -1045,7 +1056,7 @@
           ItemStack itemstack = this.field_73839_d.field_71439_g.field_71071_by.func_70448_g();
           if (itemstack.func_190926_b()) {
