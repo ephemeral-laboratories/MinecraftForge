@@ -1,6 +1,14 @@
 --- a/net/minecraft/util/text/TranslationTextComponent.java
 +++ b/net/minecraft/util/text/TranslationTextComponent.java
-@@ -100,6 +100,10 @@
+@@ -13,6 +13,7 @@
+ import javax.annotation.Nullable;
+ import net.minecraft.command.CommandSource;
+ import net.minecraft.entity.Entity;
++import net.minecraft.util.StringUtils;
+ 
+ public class TranslationTextComponent extends TextComponent implements ITargetedTextComponent {
+    private static final LanguageMap field_200526_d = new LanguageMap();
+@@ -100,6 +101,10 @@
              }
           }
  
@@ -11,3 +19,15 @@
           if (j < p_150269_1_.length()) {
              ITextComponent itextcomponent1 = new StringTextComponent(String.format(p_150269_1_.substring(j)));
              itextcomponent1.func_150256_b().func_150221_a(this.func_150256_b());
+@@ -120,7 +125,10 @@
+          if (object instanceof ITextComponent) {
+             itextcomponent = (ITextComponent)object;
+          } else {
+-            itextcomponent = new StringTextComponent(object == null ? "null" : object.toString());
++            String formatted = object instanceof Integer ?
++                    StringUtils.formatInteger((Integer) object) :
++                    String.valueOf(object);
++            itextcomponent = new StringTextComponent(formatted);
+             itextcomponent.func_150256_b().func_150221_a(this.func_150256_b());
+          }
+ 
